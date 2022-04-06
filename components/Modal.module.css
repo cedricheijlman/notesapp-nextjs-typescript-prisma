@@ -10,7 +10,7 @@
 
 .modalHeader {
   margin-bottom: 10px;
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
 }
 

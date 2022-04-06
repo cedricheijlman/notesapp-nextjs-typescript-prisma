@@ -79,7 +79,7 @@ const Home = ({ allNotes }: AllNotes) => {
 
   return (
     <>
-      <Modal />
+      {false && <Modal />}
       <div className={styles.container}>
         <h1>Notes App</h1>
         <form
