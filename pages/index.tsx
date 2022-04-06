@@ -55,12 +55,14 @@ const Home: NextPage = () => {
       >
         <label>Note Title</label>
         <input
+          value={form.title}
           onChange={(e) => {
             setForm({ ...form, title: e.target.value });
           }}
         />
         <label>Note Message</label>
         <textarea
+          value={form.content}
           onChange={(e) => {
             setForm({ ...form, content: e.target.value });
           }}
