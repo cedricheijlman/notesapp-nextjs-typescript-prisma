@@ -132,11 +132,11 @@ const Home = ({ allNotes }: AllNotes) => {
             {allNotes?.map((note) => {
               return (
                 <li key={note.id}>
-                  <div>
+                  <div className={styles.info}>
                     <h1>{note.title}</h1>
                     <p>{note.content}</p>
                   </div>
-                  <div>
+                  <div className={styles.buttonBox}>
                     <button
                       onClick={() => {
                         editNote(note.id, note.title, note.content);

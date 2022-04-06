@@ -68,22 +68,35 @@
 }
 
 .allTodos ul {
-  width: 40%;
+  width: 50%;
 }
 
 .allTodos li {
   width: 100%;
+  flex-wrap: wrap;
   text-decoration: none;
   list-style-type: none;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid rgb(159, 156, 156);
-  padding: 10px;
+  background-color: rgb(245, 241, 241);
+  border-radius: 10px;
+  align-items: center;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.allTodos h1 {
+  word-wrap: break-word;
+  word-break: break-all;
+  font-size: 19px;
 }
 
 .allTodos p {
-  font-weight: 300;
-  font-size: 23px;
+  word-wrap: break-word;
+  word-break: break-all;
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .deleteButton {
@@ -94,4 +107,18 @@
 
 .deleteButton:hover {
   transform: scale(1.04);
+}
+
+.info {
+  width: 80%;
+}
+
+.buttonBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonBox button {
+  margin-top: 0 !important;
 }
