@@ -96,7 +96,13 @@ const Home = ({ allNotes }: AllNotes) => {
 
   return (
     <>
-      {editMode && <Modal editForm={editForm} setEditForm={setEditForm} />}
+      {editMode && (
+        <Modal
+          setEditMode={setEditMode}
+          editForm={editForm}
+          setEditForm={setEditForm}
+        />
+      )}
       <div className={styles.container}>
         <h1>Notes App</h1>
         <form

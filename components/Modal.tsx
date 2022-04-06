@@ -16,15 +16,11 @@ interface Props {
     id: string;
   };
   setEditForm: React.Dispatch<React.SetStateAction<EditFormData>>;
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Modal: NextPage<Props> = ({ editForm, setEditForm }) => {
+const Modal: NextPage<Props> = ({ editForm, setEditForm, setEditMode }) => {
   const router = useRouter();
-
-  // refresh data after edit note
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
 
   // handle edit note
   const handleEditNote = async (e: React.FormEvent) => {
@@ -42,8 +38,9 @@ const Modal: NextPage<Props> = ({ editForm, setEditForm }) => {
         method: "POST",
       }).then((res) => {
         setEditForm({ title: "", id: "", content: "" });
+        setEditMode(false);
+        router.replace(router.asPath);
         console.log("test");
-        refreshData();
       });
     } catch (error) {
       console.log(error, "error");
