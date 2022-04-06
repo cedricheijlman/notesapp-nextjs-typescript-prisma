@@ -5,13 +5,22 @@ import Image from "next/image";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 
+interface AllNotes {
+  allNotes: {
+    id: string;
+    title: string;
+    content: string;
+  }[];
+}
+
 interface FormData {
   title: string;
   content: string;
   id: string;
 }
 
-const Home: NextPage = () => {
+const Home = ({ allNotes }: AllNotes) => {
+  console.log(allNotes);
   const createNote = async (data: FormData) => {
     try {
       if (data.title !== "" && data.content !== "") {
@@ -70,6 +79,20 @@ const Home: NextPage = () => {
         />
         <button type="submit">Add +</button>
       </form>
+      <div className={styles.allTodos}>
+        <ul>
+          {allNotes?.map((note) => {
+            return (
+              <li key={note.id}>
+                <div>
+                  <h1>{note.title}</h1>
+                  <p>{note.content}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };
