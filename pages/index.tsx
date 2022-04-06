@@ -1,4 +1,5 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
+import { prisma } from "../lib/prisma";
 import Head from "next/head";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -74,3 +75,19 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const allNotes = await prisma.note.findMany({
+    select: {
+      title: true,
+      content: true,
+      id: true,
+    },
+  });
+
+  return {
+    props: {
+      allNotes,
+    },
+  };
+};
