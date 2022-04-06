@@ -24,6 +24,7 @@ interface FormData {
 interface EditFormData {
   title: string;
   content: string;
+  id: string;
 }
 
 const Home = ({ allNotes }: AllNotes) => {
@@ -37,6 +38,7 @@ const Home = ({ allNotes }: AllNotes) => {
   const [editForm, setEditForm] = useState<EditFormData>({
     title: "",
     content: "",
+    id: "",
   });
   const router = useRouter();
 
@@ -88,7 +90,7 @@ const Home = ({ allNotes }: AllNotes) => {
   };
 
   const editNote = (id: string, title: string, content: string) => {
-    setEditForm({ title: title, content: content });
+    setEditForm({ title: title, content: content, id: id });
     setEditMode(true);
   };
 
