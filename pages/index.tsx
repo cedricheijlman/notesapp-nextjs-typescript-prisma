@@ -49,7 +49,7 @@ const Home = ({ allNotes }: AllNotes) => {
   const createNote = async (data: FormData) => {
     try {
       if (data.title !== "" && data.content !== "") {
-        fetch("http://localhost:3000/api/create", {
+        fetch(`${process.env.SITE_NAME}/api/create`, {
           body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Home = ({ allNotes }: AllNotes) => {
 
   const deleteNote = async (id: string) => {
     try {
-      fetch(`http://localhost:3000/api/note/${id}`, {
+      fetch(`${process.env.SITE_NAME}/api/note/${id}`, {
         headers: {
           "Content-Type": "application/json",
         },
