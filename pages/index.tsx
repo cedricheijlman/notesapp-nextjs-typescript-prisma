@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
+import Modal from "../components/modal";
 
 interface AllNotes {
   allNotes: {
@@ -77,53 +78,59 @@ const Home = ({ allNotes }: AllNotes) => {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>Notes App</h1>
-      <form
-        onSubmit={(e) => {
-          handleForm(e, form);
-        }}
-        className={styles.form}
-      >
-        <label>Note Title</label>
-        <input
-          value={form.title}
-          onChange={(e) => {
-            setForm({ ...form, title: e.target.value });
+    <>
+      <Modal />
+      <div className={styles.container}>
+        <h1>Notes App</h1>
+        <form
+          onSubmit={(e) => {
+            handleForm(e, form);
           }}
-        />
-        <label>Note Message</label>
-        <textarea
-          value={form.content}
-          onChange={(e) => {
-            setForm({ ...form, content: e.target.value });
-          }}
-        />
-        <button type="submit">Add +</button>
-      </form>
-      <div className={styles.allTodos}>
-        <ul>
-          {allNotes?.map((note) => {
-            return (
-              <li key={note.id}>
-                <div>
-                  <h1>{note.title}</h1>
-                  <p>{note.content}</p>
-                </div>
-                <button
-                  onClick={() => {
-                    deleteNote(note.id);
-                  }}
-                  className={styles.deleteButton}
-                >
-                  Delete
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+          className={styles.form}
+        >
+          <label>Note Title</label>
+          <input
+            value={form.title}
+            onChange={(e) => {
+              setForm({ ...form, title: e.target.value });
+            }}
+          />
+          <label>Note Message</label>
+          <textarea
+            value={form.content}
+            onChange={(e) => {
+              setForm({ ...form, content: e.target.value });
+            }}
+          />
+          <button type="submit">Add +</button>
+        </form>
+        <div className={styles.allTodos}>
+          <ul>
+            {allNotes?.map((note) => {
+              return (
+                <li key={note.id}>
+                  <div>
+                    <h1>{note.title}</h1>
+                    <p>{note.content}</p>
+                  </div>
+                  <div>
+                    <button>Edit</button>
+                    <button
+                      onClick={() => {
+                        deleteNote(note.id);
+                      }}
+                      className={styles.deleteButton}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
