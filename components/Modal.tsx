@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Modal.module.css";
+import { NextPage } from "next";
 
-const Modal = () => {
+interface EditFormData {
+  title: string;
+  content: string;
+}
+
+interface Props {
+  editForm: {
+    title: string;
+    content: string;
+  };
+  setEditForm: React.Dispatch<React.SetStateAction<EditFormData>>;
+}
+
+const Modal: NextPage<Props> = ({ editForm, setEditForm }) => {
   return (
     <div className={styles.modal}>
       <form>
@@ -11,9 +25,19 @@ const Modal = () => {
         </div>
 
         <label>Note Title </label>
-        <input />
+        <input
+          onChange={(e) => {
+            setEditForm({ ...editForm, title: e.target.value });
+          }}
+          value={editForm.title}
+        />
         <label>Note Message</label>
-        <textarea />
+        <textarea
+          onChange={(e) => {
+            setEditForm({ ...editForm, content: e.target.value });
+          }}
+          value={editForm.content}
+        />
         <button>Edit Note</button>
       </form>
     </div>

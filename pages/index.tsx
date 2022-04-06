@@ -21,7 +21,23 @@ interface FormData {
   id: string;
 }
 
+interface EditFormData {
+  title: string;
+  content: string;
+}
+
 const Home = ({ allNotes }: AllNotes) => {
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [form, setForm] = useState<FormData>({
+    title: "",
+    content: "",
+    id: "",
+  });
+
+  const [editForm, setEditForm] = useState<EditFormData>({
+    title: "",
+    content: "",
+  });
   const router = useRouter();
 
   const refreshData = () => {
@@ -62,12 +78,6 @@ const Home = ({ allNotes }: AllNotes) => {
     }
   };
 
-  const [form, setForm] = useState<FormData>({
-    title: "",
-    content: "",
-    id: "",
-  });
-
   const handleForm = (e: React.FormEvent, data: FormData) => {
     e.preventDefault();
     try {
@@ -77,9 +87,14 @@ const Home = ({ allNotes }: AllNotes) => {
     }
   };
 
+  const editNote = (id: string, title: string, content: string) => {
+    setEditForm({ title: title, content: content });
+    setEditMode(true);
+  };
+
   return (
     <>
-      {false && <Modal />}
+      {editMode && <Modal editForm={editForm} setEditForm={setEditForm} />}
       <div className={styles.container}>
         <h1>Notes App</h1>
         <form
@@ -114,7 +129,13 @@ const Home = ({ allNotes }: AllNotes) => {
                     <p>{note.content}</p>
                   </div>
                   <div>
-                    <button>Edit</button>
+                    <button
+                      onClick={() => {
+                        editNote(note.id, note.title, note.content);
+                      }}
+                    >
+                      Edit
+                    </button>
                     <button
                       onClick={() => {
                         deleteNote(note.id);
