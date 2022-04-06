@@ -27,10 +27,10 @@ const Modal: NextPage<Props> = ({ editForm, setEditForm }) => {
   };
 
   // handle edit note
-  const handleEditNote = (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleEditNote = async (e: React.FormEvent) => {
     try {
+      e.preventDefault();
+
       fetch(`http://localhost:3000/api/note/${editForm.id}`, {
         headers: {
           "Content-Type": "application/json",
@@ -40,12 +40,14 @@ const Modal: NextPage<Props> = ({ editForm, setEditForm }) => {
           content: editForm.content,
         }),
         method: "POST",
-      }).then(() => {
+      }).then((res) => {
         setEditForm({ title: "", id: "", content: "" });
-
+        console.log("test");
         refreshData();
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error, "error");
+    }
   };
 
   return (
@@ -70,7 +72,7 @@ const Modal: NextPage<Props> = ({ editForm, setEditForm }) => {
           }}
           value={editForm.content}
         />
-        <button>Edit Note</button>
+        <button type="submit">Edit Note</button>
       </form>
     </div>
   );

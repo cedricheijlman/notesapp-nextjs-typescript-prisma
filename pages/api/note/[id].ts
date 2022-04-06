@@ -5,10 +5,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { title, content } = req.body;
   const noteId = req.query.id;
 
-  if (req.method === "POST") {
+  if (req.method === "DELETE") {
+    const note = await prisma.note.delete({
+      where: { id: Number(noteId) },
+    });
+    return res.json(noteId);
+  } else if (req.method === "POST") {
+    const { title, content } = req.body;
     const updatedNote = await prisma.note.update({
       where: {
         id: Number(noteId),
@@ -20,14 +25,8 @@ export default async function handler(
     });
 
     return res.status(200).json({ message: "succesfully updated note" });
-  }
-
-  if (req.method === "DELETE") {
-    const note = await prisma.note.delete({
-      where: { id: Number(noteId) },
-    });
-    return res.json(noteId);
   } else {
-    return res.json({ message: "error" });
+    console.log("Error");
+    return res.status(400).json({ message: "error" });
   }
 }
