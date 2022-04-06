@@ -11,20 +11,48 @@ interface FormData {
 }
 
 const Home: NextPage = () => {
+  const createNote = async (data: FormData) => {
+    try {
+      if (data.title !== "" && data.content !== "") {
+        fetch("http://localhost:3000/api/create", {
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+        }).then(() => {
+          setForm({ title: "", content: "", id: "" });
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [form, setForm] = useState<FormData>({
     title: "",
     content: "",
     id: "",
   });
 
-  const handleForm = (e: React.FormEvent) => {
+  const handleForm = (e: React.FormEvent, data: FormData) => {
     e.preventDefault();
-    console.log(e);
+    try {
+      createNote(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <div className={styles.container}>
       <h1>Notes App</h1>
-      <form onSubmit={handleForm} className={styles.form}>
+      <form
+        onSubmit={(e) => {
+          handleForm(e, form);
+        }}
+        className={styles.form}
+      >
         <label>Note Title</label>
         <input
           onChange={(e) => {
