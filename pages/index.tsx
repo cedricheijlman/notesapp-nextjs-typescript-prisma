@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
-import Modal from "../components/modal";
+import Modal from "../components/Modal";
 
 interface AllNotes {
   allNotes: {
