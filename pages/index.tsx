@@ -46,6 +46,21 @@ const Home = ({ allNotes }: AllNotes) => {
     }
   };
 
+  const deleteNote = async (id: string) => {
+    try {
+      fetch(`http://localhost:3000/api/note/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "DELETE",
+      }).then(() => {
+        refreshData();
+      });
+    } catch (error) {
+      console.log("error deleting note");
+    }
+  };
+
   const [form, setForm] = useState<FormData>({
     title: "",
     content: "",
