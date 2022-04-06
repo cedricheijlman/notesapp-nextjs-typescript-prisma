@@ -27,7 +27,7 @@ const Modal: NextPage<Props> = ({ editForm, setEditForm, setEditMode }) => {
     try {
       e.preventDefault();
 
-      fetch(`${process.env.SITE_NAME}/api/note/${editForm.id}`, {
+      fetch(`/api/note/${editForm.id}`, {
         headers: {
           "Content-Type": "application/json",
         },
