@@ -4,6 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
 
 interface AllNotes {
   allNotes: {
@@ -20,7 +21,12 @@ interface FormData {
 }
 
 const Home = ({ allNotes }: AllNotes) => {
-  console.log(allNotes);
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
+
   const createNote = async (data: FormData) => {
     try {
       if (data.title !== "" && data.content !== "") {
@@ -32,6 +38,7 @@ const Home = ({ allNotes }: AllNotes) => {
           method: "POST",
         }).then(() => {
           setForm({ title: "", content: "", id: "" });
+          refreshData();
         });
       }
     } catch (error) {
